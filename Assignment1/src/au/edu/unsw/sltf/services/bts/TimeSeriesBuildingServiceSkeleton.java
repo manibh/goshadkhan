@@ -6,6 +6,9 @@
  * by the Apache Axis2 version: 1.6.2  Built on : Apr 17, 2012 (05:33:49 IST)
  */
     package au.edu.unsw.sltf.services.bts;
+
+
+import au.edu.unsw.sltf.services.bts.ext.TimeSeriesBuildingServiceExt;
     /**
      *  TimeSeriesBuildingServiceSkeleton java skeleton for the axisService
      */
@@ -20,13 +23,10 @@
              * @throws BuildTimeSeriesFaultException 
          */
         
-                 public au.edu.unsw.sltf.services.bts.BuildTimeSeriesResponse buildTimeSeries
-                  (
-                  au.edu.unsw.sltf.services.bts.BuildTimeSeries buildTimeSeries0
-                  )
-            throws BuildTimeSeriesFaultException{
-                //TODO : fill this with the necessary business logic
-                throw new  java.lang.UnsupportedOperationException("Please implement " + this.getClass().getName() + "#buildTimeSeries");
+        public au.edu.unsw.sltf.services.bts.BuildTimeSeriesResponse buildTimeSeries(
+                  au.edu.unsw.sltf.services.bts.BuildTimeSeries buildTimeSeriesRequest){
+        	        	
+        	return (new TimeSeriesBuildingServiceExt()).buildTimeSeries(buildTimeSeriesRequest);
         }
      
     }
