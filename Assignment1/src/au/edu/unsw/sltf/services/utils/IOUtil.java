@@ -9,6 +9,8 @@ public class IOUtil {
 	public static final String timeSeriesDataFolderName = "time_series_data";
 	
 	public static final String marketDataFolderName = "market_data";
+	
+	public static final String genericaggregateFileName = "genericaggregate";
 
 	
 	public static void setupProjectDirectoryStructure(){
@@ -24,9 +26,14 @@ public class IOUtil {
 		 }
 	}
 	
+	public static File getgenericaggregateWinFile(){
+		return new File(getRootFolder(), genericaggregateFileName+".exe");
+	}
+	
 	public static File getTimeSeriesDataFolder(){
 		return new File(getRootFolder(), timeSeriesDataFolderName);
 	}
+	
 	
 	public static File getmarketDataFolder(){
 		return new File(getRootFolder(), marketDataFolderName);
