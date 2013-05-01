@@ -27,6 +27,7 @@ public class ImportDownloadServicesSkeleton implements
 			au.edu.unsw.sltf.services.idl.ImportMarketData importMarketData0)
 			throws ImportDownloadFaultException {
 		// TODO : fill this with the necessary business logic
+		System.out.println("request resid");
 		ImportMarketDataOpImpl importOP = new ImportMarketDataOpImpl(importMarketData0);
 		return null;
 //		throw new java.lang.UnsupportedOperationException("Please implement "
