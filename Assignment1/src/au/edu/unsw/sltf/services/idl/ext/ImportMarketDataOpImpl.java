@@ -24,6 +24,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 import au.edu.unsw.sltf.services.idl.ImportMarketData;
+import au.edu.unsw.sltf.services.idl.ImportMarketDataResponse;
 
 /**
  * @author Mani
@@ -31,6 +32,7 @@ import au.edu.unsw.sltf.services.idl.ImportMarketData;
  */
 public class ImportMarketDataOpImpl {
 
+	private static String path="/Users/Mani/Java/";
 	private ImportMarketData importMarketData;
 
 	/**
@@ -39,10 +41,19 @@ public class ImportMarketDataOpImpl {
 	 */
 	public ImportMarketDataOpImpl(ImportMarketData importMarketData) {
 		// TODO Auto-generated constructor stub
-		this.importMarketData = importMarketData;
-		downloadFileFromUri("/Users/Mani/Java/");
-		createFilteredFile("/Users/Mani/Java/","temp.csv");
-
+		this.importMarketData = importMarketData;		
+	}
+	/**
+	 * public method to be accessed from skeleton class and obtain eventSetId for response 
+	 * @param path
+	 * @return Event Set Id
+	 */
+	public ImportMarketDataResponse importMarketData(){
+		downloadFileFromUri(path);
+		String eventSetId= createFilteredFile(path,"temp.csv");
+		ImportMarketDataResponse marketDataResp = new ImportMarketDataResponse();
+		marketDataResp.setEventSetId(eventSetId);
+		return marketDataResp;
 	}
 
 	private void downloadFileFromUri(String path) {
@@ -65,17 +76,19 @@ public class ImportMarketDataOpImpl {
 		}
 	}
 
+
 	private String createFilteredFile(String path, String name) {
 		Calendar endDate = importMarketData.getEndDate();
 		Calendar startDate = importMarketData.getStartDate();
 		String securityCode = importMarketData.getSec();
-		String eventSetID= RandomStringUtils.randomAscii(10)+".csv";
-		CSVReader reader;
-		CSVWriter writer;
+		String eventSetID= RandomStringUtils.randomAlphanumeric(15)+".csv";
+		CSVReader reader=null;
+		CSVWriter writer=null;;
+		List <String[]> rows=null;
 		try {
 			reader = new CSVReader(new FileReader(path + name));
 			writer = new CSVWriter(new FileWriter(path+eventSetID), ',', CSVWriter.NO_QUOTE_CHARACTER,CSVWriter.DEFAULT_SEPARATOR);
-			List <String[]> rows= reader.readAll();
+			rows= reader.readAll();
 			writer.writeNext(rows.get(0));
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.mmm");
 			Calendar temp=Calendar.getInstance();
@@ -86,16 +99,24 @@ public class ImportMarketDataOpImpl {
 				   endDate.after(temp)){
 					writer.writeNext(rows.get(i));
 				}
-			}
-			writer.close();
-			rows.clear();
-			File tmp=new File(path+name);
-			tmp.delete();
+			}			
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally{
+			try {
+				reader.close();
+				writer.close();
+				rows.clear();
+				File tmp=new File(path+name);
+				tmp.delete();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		
 		return eventSetID;

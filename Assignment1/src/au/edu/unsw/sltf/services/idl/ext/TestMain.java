@@ -32,6 +32,7 @@ public class TestMain {
 	     
 	     System.out.println(rightNow.getTime());
 	     String eventSetID= RandomStringUtils.randomAscii(10)+".csv";
+	      eventSetID= RandomStringUtils.randomAlphanumeric(15);
 	     System.out.println(eventSetID);
 	     
 

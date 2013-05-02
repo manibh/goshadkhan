@@ -6,6 +6,8 @@
  */
 package au.edu.unsw.sltf.services.idl;
 
+import javax.xml.stream.XMLStreamReader;
+
 import au.edu.unsw.sltf.services.idl.ext.DownloadFileOpImpl;
 import au.edu.unsw.sltf.services.idl.ext.ImportMarketDataOpImpl;
 
@@ -28,10 +30,9 @@ public class ImportDownloadServicesSkeleton implements
 			throws ImportDownloadFaultException {
 		// TODO : fill this with the necessary business logic
 		System.out.println("request resid");
-		ImportMarketDataOpImpl importOP = new ImportMarketDataOpImpl(importMarketData0);
-		return null;
-//		throw new java.lang.UnsupportedOperationException("Please implement "
-//				+ this.getClass().getName() + "#importMarketData");
+		ImportMarketDataOpImpl importOp = new ImportMarketDataOpImpl(importMarketData0);
+ 
+		return importOp.importMarketData();
 	}
 
 	/**
