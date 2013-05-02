@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+<!--  added by mani
+ <display-name>HttpMarketDataDlServlet</display-name>
+	<servlet>
+		<servlet-name>HttpMarketDataDlServlet</servlet-name>
+		<servlet-class>au.edu.unsw.sltf.services.utils.MYHttpServlet</servlet-class>
+	</servlet>
+ 
+	<servlet-mapping>
+		<servlet-name>HttpMarketDataDlServlet</servlet-name>
+		<url-pattern>/marketDataDl/*</url-pattern>
+	</servlet-mapping>
+	
+ -->
+	
 	<display-name>Assignment1</display-name>
 	<servlet>
 		<display-name>Apache-Axis Servlet</display-name>
@@ -45,4 +60,7 @@
 		<error-code>500</error-code>
 		<location>/axis2-web/Error/error500.jsp</location>
 	</error-page>
+	
+	
+ 
 </web-app>

@@ -25,6 +25,7 @@ import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 import au.edu.unsw.sltf.services.idl.ImportMarketData;
 import au.edu.unsw.sltf.services.idl.ImportMarketDataResponse;
+import au.edu.unsw.sltf.services.utils.IOUtil;
 
 /**
  * @author Mani
@@ -32,7 +33,7 @@ import au.edu.unsw.sltf.services.idl.ImportMarketDataResponse;
  */
 public class ImportMarketDataOpImpl {
 
-	private static String path="/Users/Mani/Java/";
+	private static String path;
 	private ImportMarketData importMarketData;
 
 	/**
@@ -41,7 +42,9 @@ public class ImportMarketDataOpImpl {
 	 */
 	public ImportMarketDataOpImpl(ImportMarketData importMarketData) {
 		// TODO Auto-generated constructor stub
-		this.importMarketData = importMarketData;		
+		this.importMarketData = importMarketData;
+		IOUtil.setupProjectDirectoryStructure();
+		this.path=IOUtil.getmarketDataFolder().getPath()+"/";
 	}
 	/**
 	 * public method to be accessed from skeleton class and obtain eventSetId for response 

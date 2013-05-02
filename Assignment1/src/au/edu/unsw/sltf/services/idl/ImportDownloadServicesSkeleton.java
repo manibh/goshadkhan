@@ -6,8 +6,6 @@
  */
 package au.edu.unsw.sltf.services.idl;
 
-import javax.xml.stream.XMLStreamReader;
-
 import au.edu.unsw.sltf.services.idl.ext.DownloadFileOpImpl;
 import au.edu.unsw.sltf.services.idl.ext.ImportMarketDataOpImpl;
 
@@ -48,7 +46,7 @@ public class ImportDownloadServicesSkeleton implements
 			throws ImportDownloadFaultException {
 		// TODO : fill this with the necessary business logic
 		DownloadFileOpImpl downloadOp = new DownloadFileOpImpl(downloadFile2);
-		return null;
+		return downloadOp.downloadFile();
 //		throw new java.lang.UnsupportedOperationException("Please implement "
 //				+ this.getClass().getName() + "#downloadFile");
 	}

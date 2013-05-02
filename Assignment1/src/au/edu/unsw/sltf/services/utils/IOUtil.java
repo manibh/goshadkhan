@@ -41,6 +41,8 @@ public class IOUtil {
 	
 	public static File getRootFolder(){
 		ClassLoader classLoader = TimeSeriesBuildingServiceExt.class.getClassLoader();
-		return new File(classLoader.getResource("").getPath());
+		File temp = new File(classLoader.getResource("").getPath());
+		temp = temp.getParentFile().getParentFile();
+		return temp;
 	}
 }
