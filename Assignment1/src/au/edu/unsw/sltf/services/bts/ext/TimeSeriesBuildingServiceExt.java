@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 
@@ -14,20 +15,20 @@ import au.edu.unsw.sltf.services.bts.BuildTimeSeriesFault;
 import au.edu.unsw.sltf.services.bts.BuildTimeSeriesFaultException;
 import au.edu.unsw.sltf.services.bts.BuildTimeSeriesResponse;
 import au.edu.unsw.sltf.services.bts.TimeSeriesFaultType;
+import au.edu.unsw.sltf.services.clients.bts.TimeSeriesBuildingServiceStub;
 import au.edu.unsw.sltf.services.utils.IOUtil;
 
 public class TimeSeriesBuildingServiceExt {
 	
    public BuildTimeSeriesResponse buildTimeSeries(BuildTimeSeries buildTimeSeriesRequest) throws BuildTimeSeriesFaultException{
-   	
-	  ///File marketDataFile = new File(IOUtil.getmarketDataFolder(), buildTimeSeriesRequest.getEventSetId());
+	   
+	   
 	  if (!buildTimeSeriesRequest.getEventSetId().matches("\\A\\p{ASCII}*\\z")){
 		  BuildTimeSeriesFaultException exp = new BuildTimeSeriesFaultException();
 		   BuildTimeSeriesFault buildTimeSeriesFault  = new BuildTimeSeriesFault();
 		   buildTimeSeriesFault.setFaultMessage("Your EventSetId is not valid");
 		   buildTimeSeriesFault.setFaultType(TimeSeriesFaultType.InvalidEventSetId);
 		   exp.setFaultMessage(buildTimeSeriesFault);
-		   
 		   throw exp;
 	  }
 	  
@@ -63,6 +64,7 @@ public class TimeSeriesBuildingServiceExt {
 		   }
 		   systemVarsFile.createNewFile();
 		   
+		   
 		   PrintWriter out = new PrintWriter(systemVarsFile);
 		   out.println("-- This is a comment line.");
 		   out.println("input_file," + buildTimeSeriesRequest.getEventSetId());
@@ -83,10 +85,18 @@ public class TimeSeriesBuildingServiceExt {
 		   out.close();
 		   
 		   
-		   
-		   Process process = runtime.exec(IOUtil.getgenericaggregateWinFile().getAbsolutePath()
+		   Process process = runtime.exec(IOUtil.getgenericaggregateWinFile().getAbsolutePath() //+ " >>" + new File(IOUtil.getgenericaggregateWinFile().getParentFile(), "out.txt").getAbsolutePath()
 				   , null, IOUtil.getgenericaggregateWinFile().getParentFile());
-		   
+		 String line1 = "";
+		   BufferedReader in = new BufferedReader(
+	               new InputStreamReader(process.getInputStream()) );
+	       while ((line1 = in.readLine()) != null) {
+	         System.out.println(line1);
+	       }
+	       in.close();
+	       
+	       
+	   
 		   File errorFile = new File (IOUtil.getgenericaggregateWinFile().getParentFile(), "error.txt");
 		   if(errorFile.exists()){
 			   InputStream    fis;
@@ -111,8 +121,13 @@ public class TimeSeriesBuildingServiceExt {
 			   fis = null;
 		   } 
 	   }catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		   BuildTimeSeriesFaultException exp = new BuildTimeSeriesFaultException();
+		   BuildTimeSeriesFault buildTimeSeriesFault  = new BuildTimeSeriesFault();
+		   buildTimeSeriesFault.setFaultMessage(e.getMessage());
+		   buildTimeSeriesFault.setFaultType(TimeSeriesFaultType.ProgramError);
+		   exp.setFaultMessage(buildTimeSeriesFault);
+		   
+		   throw exp;
 		} 
 			   
 	   if(!errorMessage.equals("")){
