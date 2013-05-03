@@ -22,7 +22,6 @@ public class TimeSeriesBuildingServiceExt {
 	
    public BuildTimeSeriesResponse buildTimeSeries(BuildTimeSeries buildTimeSeriesRequest) throws BuildTimeSeriesFaultException{
 	   
-	   
 	  if (!buildTimeSeriesRequest.getEventSetId().matches("\\A\\p{ASCII}*\\z")){
 		  BuildTimeSeriesFaultException exp = new BuildTimeSeriesFaultException();
 		   BuildTimeSeriesFault buildTimeSeriesFault  = new BuildTimeSeriesFault();
