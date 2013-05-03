@@ -27,7 +27,15 @@ public class IOUtil {
 	}
 	
 	public static File getgenericaggregateWinFile(){
-		return new File(getRootFolder(), genericaggregateFileName+".exe");
+		ClassLoader classLoader = TimeSeriesBuildingServiceExt.class.getClassLoader();
+		String osName = System.getProperty("os.name");
+		String extension = "";
+		if (osName.contains("Windows"))
+		{
+			extension = ".exe";
+		}
+		return new File(classLoader.getResource(genericaggregateFileName + extension).getPath());
+				//(getRootFolder(), genericaggregateFileName+".exe");
 	}
 	
 	public static File getTimeSeriesDataFolder(){
