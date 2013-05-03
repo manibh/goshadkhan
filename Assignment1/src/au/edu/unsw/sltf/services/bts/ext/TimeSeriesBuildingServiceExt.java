@@ -3,13 +3,11 @@ package au.edu.unsw.sltf.services.bts.ext;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.UUID;
+
 
 import au.edu.unsw.sltf.services.bts.BuildTimeSeries;
 import au.edu.unsw.sltf.services.bts.BuildTimeSeriesFault;

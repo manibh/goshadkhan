@@ -7,19 +7,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-
-//import org.apache.axis2.databinding.types.URI;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 import au.edu.unsw.sltf.services.idl.ImportDownloadFault;
@@ -89,8 +83,9 @@ public class ImportMarketDataOpImpl {
 
 	private String createFilteredFile(String path, String name)
 			throws ImportDownloadFaultException {
-		Calendar endDate = importMarketData.getEndDate();
+		Calendar endDate = importMarketData.getEndDate();		
 		Calendar startDate = importMarketData.getStartDate();
+		String dummy= startDate.getTime().toGMTString();
 		String securityCode = importMarketData.getSec();
 		String eventSetID = RandomStringUtils.randomAlphanumeric(15);
 		CSVReader reader = null;
@@ -105,7 +100,7 @@ public class ImportMarketDataOpImpl {
 			rows = reader.readAll();
 			writer.writeNext(rows.get(0));
 			SimpleDateFormat sdf = new SimpleDateFormat(
-					"dd-MMM-yyyy HH:mm:ss.mmm");
+					"dd-MMM-yyyy HH:mm:ss.SSS");
 			Calendar temp = Calendar.getInstance();
 			// TODO don't know what to do with following fault type
 			// ImportDownloadFaultType._InvalidSECCode
@@ -117,9 +112,9 @@ public class ImportMarketDataOpImpl {
 					writer.writeNext(rows.get(i));
 					isSecCodeValid = true;
 				}
-				if (!isSecCodeValid)
-					throw new Exception("INVALID_SEC");
 			}
+			if (!isSecCodeValid)
+				throw new Exception("INVALID_SEC");
 		} catch (Exception e) {
 			ImportDownloadFaultException exp = new ImportDownloadFaultException();
 			ImportDownloadFault loadFaultMsg = new ImportDownloadFault();

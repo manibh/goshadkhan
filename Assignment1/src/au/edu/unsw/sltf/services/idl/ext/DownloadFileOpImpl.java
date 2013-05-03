@@ -32,14 +32,12 @@ public class DownloadFileOpImpl {
 
 	public DownloadFileResponse downloadFile() throws ImportDownloadFaultException{
 		String fileName=downloadFile.getEventSetId()+".csv";
-//		if (fileName.indexOf(ch))
-//		StringUtils.
-//		Nima khobi  ? TODO he he
 		URI eventSetIdUrl=null;
 		String hostName;
 		try {
 			hostName=InetAddress.getLocalHost().getHostName();
 			File temp= new File(IOUtil.getmarketDataFolder()+"/"+fileName );
+			//TODO is not parsing currectly
 			if (!fileName.matches("\\A\\p{ASCII}*\\z")) throw new Exception("CONTAINS_CONTROL_CHAR");
 			if (!temp.exists()) throw new Exception("");
 			eventSetIdUrl = new URI("http://"+hostName+":"+hostPort+"/Assignment1/market_data/"+fileName);
