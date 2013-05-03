@@ -24,7 +24,7 @@ import au.edu.unsw.sltf.services.bts.ext.TimeSeriesBuildingServiceExt;
          */
         
         public au.edu.unsw.sltf.services.bts.BuildTimeSeriesResponse buildTimeSeries(
-                  au.edu.unsw.sltf.services.bts.BuildTimeSeries buildTimeSeriesRequest){
+                  au.edu.unsw.sltf.services.bts.BuildTimeSeries buildTimeSeriesRequest) throws BuildTimeSeriesFaultException{
         	        	
         	return (new TimeSeriesBuildingServiceExt()).buildTimeSeries(buildTimeSeriesRequest);
         }
