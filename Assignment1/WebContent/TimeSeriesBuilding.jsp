@@ -12,7 +12,7 @@
 	<table>
 	 <tr>
 	 	<td>EventSetId</td>
-	 	<td><input type="text" value="FinDataSimple" name="inEventSetId"/></td>
+	 	<td><input type="text" value="" name="inEventSetId"/></td>
 	 </tr>
 	  <tr>
 	 	<td>TimeIntervalDuration</td>

@@ -14,17 +14,17 @@
 		<table>
 			<tr>
 				<td>Security ID</td>
-				<td><input name=secId></td>
+				<td><input name=secId value="ZXQ"></td>
 			</tr>
 			<tr>
 				<td>Start Date</td>
 				<td><input name=startDate type="text"
-					value="dd-MMM-yyyy HH:mm:ss.mmm" style="width: 233px;"></td>
+					value="01-JAN-2000 21:32:52" style="width: 233px;"></td>
 			</tr>
 			<tr>
 				<td>End Date</td>
 				<td><input name=endDate type="text"
-					value="dd-MMM-yyyy HH:mm:ss.mmm" style="width: 233px;">
+					value="01-JAN-2012 21:32:52" style="width: 233px;">
 			</tr>
 			<tr>
 				<td>Data Source URI</td>
