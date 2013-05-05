@@ -83,9 +83,9 @@ public class ImportMarketDataOpImpl {
 
 	private String createFilteredFile(String path, String name)
 			throws ImportDownloadFaultException {
-		Calendar endDate = importMarketData.getEndDate();		
+		Calendar endDate = importMarketData.getEndDate();
 		Calendar startDate = importMarketData.getStartDate();
-		String dummy= startDate.getTime().toGMTString();
+		String dummy = startDate.getTime().toGMTString();
 		String securityCode = importMarketData.getSec();
 		String eventSetID = RandomStringUtils.randomAlphanumeric(15);
 		CSVReader reader = null;
@@ -121,7 +121,8 @@ public class ImportMarketDataOpImpl {
 			if (e.getMessage().equals("INVALID_SEC")) {
 				loadFaultMsg
 						.setFaultMessage("Given Security code does not exist");
-				loadFaultMsg.setFaultType(ImportDownloadFaultType.InvalidSECCode);
+				loadFaultMsg
+						.setFaultType(ImportDownloadFaultType.InvalidSECCode);
 			} else {
 				loadFaultMsg
 						.setFaultMessage("Parsing error due to malformed file structure");
@@ -129,7 +130,7 @@ public class ImportMarketDataOpImpl {
 			}
 			exp.setFaultMessage(loadFaultMsg);
 			throw exp;
-		}finally {
+		} finally {
 			try {
 				reader.close();
 				writer.flush();

@@ -21,6 +21,7 @@ public class IOUtil {
 			 timeSeriesDataFolder.mkdir();
 		 }
 		 
+		 
 		 if (!marketDataFolder.exists()){
 			 marketDataFolder.mkdir();
 		 }
@@ -34,7 +35,9 @@ public class IOUtil {
 		{
 			extension = ".exe";
 		}
-		return new File(classLoader.getResource(genericaggregateFileName + extension).getPath());
+		//String catalinaHome = System.getProperty("catalina.base") + File.separator + "webapps"+ File.separator + "ROOT";
+		
+		return new File(getRootFolder(), genericaggregateFileName + extension); //+ classLoader.getResource(genericaggregateFileName + extension).getPath());
 				//(getRootFolder(), genericaggregateFileName+".exe");
 	}
 	
@@ -48,9 +51,8 @@ public class IOUtil {
 	}
 	
 	public static File getRootFolder(){
-		ClassLoader classLoader = TimeSeriesBuildingServiceExt.class.getClassLoader();
-		File temp = new File(classLoader.getResource("").getPath());
-		temp = temp.getParentFile().getParentFile();
-		return temp;
+		String catalinaHome = System.getProperty("catalina.base") + File.separator + "webapps"+ File.separator + "ROOT";
+		
+		return new File(catalinaHome);
 	}
 }
